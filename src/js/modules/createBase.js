@@ -1,5 +1,6 @@
-import { config } from './config'
+import config from './config'
 import cropFoto from './cropFoto'
+
 export default (galery) => {
 
 	const canvas = document.createElement('canvas')
@@ -32,26 +33,39 @@ export default (galery) => {
 
 	const items = []
 
-	let x = 0
-	let y = 0
+	let k = 0
+
+
+	const inHeight = Math.ceil(config.height/config.size)
+	const inWidth = Math.ceil(config.width/config.size)
+
+	for (let i = 0; i < inHeight; i++) {
+
+		items.push([])
+
+		for (let j = 0; j < inWidth; j++) {
+
+
+			if (typeof images[k] === 'undefined') {
+
+				k = 0
+			}
+
+			const item = cropFoto(images[k++])
+
+			items[i].push({
+				item,
+				img: images[i],
+			})
+		}
+	}
 
 	for (let i = 0; i < images.length; i ++) {
 
-		let j = Math.ceil((i * config.size ) / config.width) - 1
-
-		if (j < 0) { j = 0 }
-
-		if (typeof items[j] === 'undefined'){
-
-			items.push([])
+		if ((i) % inWidth === 0 || i === 0) {
 		}
 
-		const item = cropFoto(images[i])
 
-		items[j].push({
-			item,
-			img: images[i],
-		})
 	}
 
 	for (let i = 0; i < items.length; i++) {

@@ -1,5 +1,5 @@
 import createImages from './modules/createImages'
-import { config } from './modules/config'
+import config from './modules/config'
 import createBase from './modules/createBase'
 
 const galery = document.getElementById('galery')
@@ -12,7 +12,13 @@ const ready = () => {
 
 	const { canvas, items } = createBase(galery)
 
+	console.log(items);
+
 	galery.append(canvas)
+
+	// canvas.addEventListener('mousemove', (e) => {
+	// 	console.log(e);
+	// })
 }
 
 window.onload = function(){
@@ -25,5 +31,5 @@ document.addEventListener("DOMContentLoaded", () => {
 	const inWidth = Math.ceil(config.width/config.size)
 	const inHeight = Math.ceil(config.height/config.size)
 
-	createImages(inHeight * inWidth, galery)
+	createImages(inHeight * inWidth - 7, galery)
 });
