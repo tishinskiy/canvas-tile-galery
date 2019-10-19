@@ -1,6 +1,5 @@
 import createImages from './modules/createImages'
 import { config } from './modules/config'
-
 import createBase from './modules/createBase'
 
 const galery = document.getElementById('galery')
@@ -12,7 +11,7 @@ config.size = 200
 const ready = () => {
 
 	const { canvas, items } = createBase(galery)
-	
+
 	galery.append(canvas)
 }
 

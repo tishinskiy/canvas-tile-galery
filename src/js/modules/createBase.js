@@ -37,22 +37,29 @@ export default (galery) => {
 
 	for (let i = 0; i < images.length; i ++) {
 
-		const item = cropFoto(images[i])
+		let j = Math.ceil((i * config.size ) / config.width) - 1
 
-		ctx.drawImage(item, x, y, config.size, config.size );
-		x += config.size
+		if (j < 0) { j = 0 }
 
-		if (x > config.width) {
-			x = 0
-			y += config.size
+		if (typeof items[j] === 'undefined'){
+
+			items.push([])
 		}
 
-		items.push({
-			item, 
+		const item = cropFoto(images[i])
+
+		items[j].push({
+			item,
 			img: images[i],
-			x, 
-			y
 		})
+	}
+
+	for (let i = 0; i < items.length; i++) {
+
+		for (let j = 0; j < items[i].length; j++) {
+
+			ctx.drawImage(items[i][j].item, j * config.size, i * config.size, config.size, config.size );
+		}
 	}
 
 	return {canvas, items}
